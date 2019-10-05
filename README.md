@@ -51,7 +51,7 @@ case sould not make any difference. Examples: `consulta.sql`, `Consulta.sql`.
 So, renaming your files accordingly:
 
 ``` bash
-# vandor-rename [class_number] [exer_number] [evolution] [student_name] [student_registrationnumber]
+# vandor-rename [class_number] [exer_number] [evolution] [name] [registration_number]
 $ vandor-rename 1 2 3 AlunoSobrenome 15-0129815
 ```
 

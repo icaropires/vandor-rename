@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import re
 from sys import argv
 from collections import defaultdict
 
@@ -130,7 +131,7 @@ if __name__ == '__main__':
     if len(argv) < 6:
         print("Usage example: vandor-rename"
               " [class_number] [exer_number] [evolution]"
-              " [student_name] [student_registrationnumber]"
+              " [name] [registration_number]"
               "\nExample: vandor-rename 1 2 3 AlunoSobrenome 15-0129815")
         exit(0)
 
@@ -151,6 +152,35 @@ if __name__ == '__main__':
         ext = ext or VALID_NAMES[typee.lower()][0]
 
         return f'{new_name}.{ext}'
+
+    def validate_params():
+        message = ''
+        param = ''
+        name_pat = r'([A-ZÁÉÍÓÚÀÂÊÔÃÕÇ]{1}[a-záéíóúàâêôãõç]+){2}'
+        registration_pat = r'1[0-9]-0[01][0-9]{5}'
+
+        if int(class_n) <= 0:
+            param = 'class_n'
+            message = "'class_n' must be greater than 0"
+        elif int(exer_n) <= 0:
+            param = 'exer_n'
+            message = "'exer_n' must be greater than 0"
+        elif evolution != 'Oracle' and evolution != '-1':
+            param = 'evolution_n'
+            if int(evolution) <= 0:
+                message = "'evolution' must be greater than 0 or 'Oracle'"
+        elif re.fullmatch(name_pat, name) is None:
+            param = 'name'
+            message = "'student_name' must be like: 'NameSurname'"
+        elif re.fullmatch(registration_pat, registration_number) is None:
+            param = 'registration_number'
+            message = ("'registration_number' must be like: 15-0129815"
+                       " and look like real registrations numbers")
+
+        if message:
+            raise ValueError(f'Invalid [{param}]! {message}')
+
+    validate_params()
 
     all_files = os.listdir()
     renamings, ignored_files = parse_files(all_files)
