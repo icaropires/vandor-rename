@@ -4,6 +4,17 @@ Are you sick of renaming all the thousands of files of all the thousands of exer
 by Professor Vandor every week? So am I! We can't change the format he likes but we can automate
 the renaming! This is what this project is about.
 
+## Features
+
+* Support for renaming exercises already renamed and in short form
+* Validation on params to avoid user mistakes
+* Visualization of operations performed
+* Visualization of files that will be ignored
+* Support auto capitalize type on filename
+* Check if name conflicts will happen during the renaming
+* Confirmation before apply the changes
+
+
 ## The Pattern
 
 Vandor requests that all the the files should be in the following format:
