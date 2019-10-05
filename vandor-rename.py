@@ -2,6 +2,7 @@
 
 import os
 import re
+from zipfile import ZipFile
 from sys import argv
 from collections import defaultdict
 
@@ -68,8 +69,7 @@ def alert_renamings_to_be_applied(renamings):
     print(f'\nTotal of renamings: {total_renamings}')
 
     if not total_renamings:
-        print('No renamings to be applied!')
-        exit(0)
+        raise FileNotFoundError('No renamings to be applied')
 
 
 def confirm_operations(renamings, ignored_files):
@@ -121,6 +121,21 @@ def parse_files(all_files):
     return renamings, ignored_files
 
 
+def zip_result(name, renamings):
+    if len(renamings):
+        try:
+            os.remove(name)
+        except FileNotFoundError:
+            pass
+
+        with ZipFile(name, 'w') as z:
+            for _, f in renamings.items():
+                z.write(f)
+        print('=> New zip generated to:', name)
+    else:
+        print('No files to be zipped!')
+
+
 def beg():
     print('Cool application? Please give a star on Github:'
           ' https://github.com/icaropires/vandor-rename !')
@@ -137,15 +152,15 @@ if __name__ == '__main__':
 
     _, class_n, exer_n, evolution, name, registration_number, *_ = argv
 
+    def assemble_classname():
+        class_name = f'aula{class_n}exer{exer_n}'
+
+        if evolution != '-1':
+            class_name += 'Evolucao' + evolution
+
+        return class_name
+
     def get_new_name(typee, ext=None):
-        def assemble_classname():
-            class_name = f'aula{class_n}exer{exer_n}'
-
-            if evolution != '-1':
-                class_name += 'Evolucao' + evolution
-
-            return class_name
-
         new_name = '_'.join(
             (assemble_classname(), typee, name, registration_number)
         )
@@ -185,7 +200,13 @@ if __name__ == '__main__':
     all_files = os.listdir()
     renamings, ignored_files = parse_files(all_files)
 
-    confirm_operations(renamings, ignored_files)
-    rename_files(renamings)
+    try:
+        confirm_operations(renamings, ignored_files)
+        rename_files(renamings)
+    except FileNotFoundError:
+        print('No renamings to be applied!')
+
+    name = f'{assemble_classname()}_{name}_{registration_number}.zip'
+    zip_result(name, renamings)
 
     beg()
