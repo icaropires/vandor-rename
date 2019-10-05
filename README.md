@@ -12,7 +12,7 @@ Vandor requests that all the the files should be in the following format:
 Where:
 * `aula` means class and X is the the class number
 * `exer` means exercise and Y is the exercise number
-* `Evolucao` means evolution and Z is the evolution number (optinoal)
+* `Evolucao` means evolution and Z is the evolution number (optional)
 * `Type` is about what part of the exercise the file is, a script for
 creating the database, etc. It can be: `Apaga`, `Consulta`, `Controle`,
 `Fisico`, `Popula`, `Conceitual`, `Logico`, `DOC` (portuguese words)
@@ -51,8 +51,13 @@ case sould not make any difference. Examples: `consulta.sql`, `Consulta.sql`.
 So, renaming your files accordingly:
 
 ``` bash
-vandor-rename [class_name] [student_name] [student_registrationnumber]
+# vandor-rename [class_number] [exer_number] [evolution] [student_name] [student_registrationnumber]
+$ vandor-rename 1 2 3 AlunoSobrenome 15-0129815
 ```
+
+This will result in files like this: `aula1exer2Evolucao3_Consulta_AlunoSobrenome_15-0129815.sql`.
+Due to `[evolution]` be optional, you can pass it with value `-1` to ommit `EvolucaoZ` part.
+
 
 ## How to contribute
 
