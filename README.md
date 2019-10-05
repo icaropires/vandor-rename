@@ -56,4 +56,5 @@ vandor-rename [class_name] [studen_name] [student_registrationnumber]
 
 ## How to contribute
 
-TODO
+All PRs and issues will are welcome.
+For PRs, just use flake8 and fix the problems in your files before openning a PR.

@@ -29,8 +29,9 @@ def is_renamed_exercise(filee):
 
 # Shortname exercise is like: consulta.sql
 def is_shortname_exercise(filee):
+    # Just some iterations
     short_names = (f'{n}.{ext}' for n, _exts in
-                 VALID_NAMES.items() for ext in _exts) # Just some iterations
+                   VALID_NAMES.items() for ext in _exts)
 
     return filee in short_names
 
@@ -46,7 +47,7 @@ def alert_ignored_files(ignored_files):
           '\tIgnored Files\n'
           '=============================')
     ignored_files = '\n'.join(
-        f'  {i+1}. {f}' for i,f in enumerate(ignored_files)
+        f'  {i+1}. {f}' for i, f in enumerate(ignored_files)
     )
     print("The following files will be ignored because they don't"
           f" look like exercises:\n{ignored_files}")
@@ -98,7 +99,6 @@ if __name__ == '__main__':
 
     _, class_name, name, registration_number, *_ = argv
 
-
     def get_new_name(typee, ext=None):
         new_name = '_'.join((class_name, typee, name, registration_number))
         ext = ext or VALID_NAMES[typee.lower()][0]
@@ -111,7 +111,7 @@ if __name__ == '__main__':
         ignored_files = []
 
         for f in all_files:
-            if not renamings[f]: # Sanity check
+            if not renamings[f]:  # Sanity check
                 new_name = ''
                 if is_renamed_exercise(f):
                     typee = type_to_presentation_type(f.split('_')[1])
@@ -131,7 +131,7 @@ if __name__ == '__main__':
                                  f" and '{renamings_reversed[f]}'!"
                                  " No files will be renamed!")
 
-        renamings = {k : v for k,v in renamings.items() if v}
+        renamings = {k: v for k, v in renamings.items() if v}
         return renamings, ignored_files
 
     def beg():
