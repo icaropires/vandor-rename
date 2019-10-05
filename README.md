@@ -7,7 +7,7 @@ the renaming! This is what this project is about.
 ## The Pattern
 
 Vandor requests that all the the files should be in the following format:
-`aulaXexerYEvolucaoZ_Type_NameSurname_registrationnumber.extension`, respecting the camel case.
+`aulaXexerYEvolucaoZ_Type_NameSurname_registrationnumber.extension`, respecting the case.
 
 Where:
 * `aula` means class and X is the the class number
@@ -43,7 +43,7 @@ Currently, the command **must be called on the same folder where your exercise f
 Your files can be in two formats: already renamed or the short form.
 
 Already renamed means they already are on a valid format and you want to change just the
-information ([Look here]()).
+information ([Look here](https://github.com/icaropires/vandor-rename#the-pattern)).
 
 The short form can be understood as just the `Type` (described before) of the file and the
 case sould not make any difference. Examples: `consulta.sql`, `Consulta.sql`.
@@ -51,7 +51,7 @@ case sould not make any difference. Examples: `consulta.sql`, `Consulta.sql`.
 So, renaming your files accordingly:
 
 ``` bash
-vandor-rename [class_name] [studen_name] [student_registrationnumber]
+vandor-rename [class_name] [student_name] [student_registrationnumber]
 ```
 
 ## How to contribute
