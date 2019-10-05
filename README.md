@@ -8,6 +8,7 @@ the renaming! This is what this project is about.
 
 * Support for renaming exercises already renamed and in short form
 * Validation on params to avoid user mistakes
+* Generates a new zip for all files which has the correct format name
 * Visualization of operations performed
 * Visualization of files that will be ignored
 * Support auto capitalize type on filename
@@ -68,6 +69,9 @@ $ vandor-rename 1 2 3 AlunoSobrenome 15-0129815
 
 This will result in files like this: `aula1exer2Evolucao3_Consulta_AlunoSobrenome_15-0129815.sql`.
 Due to `[evolution]` be optional, you can pass it with value `-1` to ommit `EvolucaoZ` part.
+
+Every time the application is called and there is exist some valid file on folder with correct names,
+a zip will be created with these files, even if they weren't renamed now.
 
 
 ## How to contribute
