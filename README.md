@@ -40,8 +40,8 @@ As this is just a script without dependencies, I didn't put it on PyPI and you c
 on Unix systems with just:
 
 ``` bash
-sudo curl https://raw.githubusercontent.com/icaropires/vandor-rename/master/vandor-rename.py \
-  -o /usr/local/bin/vandor-rename && sudo chmod a+x+r /usr/local/bin/vandor-rename
+sudo curl https://raw.githubusercontent.com/icaropires/vandor_rename/master/vandor_rename.py \
+  -o /usr/local/bin/vandor_rename && sudo chmod a+x+r /usr/local/bin/vandor_rename
 ```
 
 For updating your version, you can use the same command.
@@ -55,7 +55,7 @@ Currently, the command **must be called on the same folder where your exercise f
 Your files can be in two formats: already renamed or the short form.
 
 Already renamed means they already are on a valid format and you want to change just the
-information ([Look here](https://github.com/icaropires/vandor-rename#the-pattern)).
+information ([Look here](https://github.com/icaropires/vandor_rename#the-pattern)).
 
 The short form can be understood as just the `Type` (described before) of the file and the
 case sould not make any difference. Examples: `consulta.sql`, `Consulta.sql`.
@@ -63,8 +63,8 @@ case sould not make any difference. Examples: `consulta.sql`, `Consulta.sql`.
 So, renaming your files accordingly:
 
 ``` bash
-# vandor-rename [class_number] [exer_number] [evolution] [name] [registration_number]
-$ vandor-rename 1 2 3 AlunoSobrenome 15-0129815
+# vandor_rename [class_number] [exer_number] [evolution] [name] [registration_number]
+$ vandor_rename 1 2 3 AlunoSobrenome 15-0129815
 ```
 
 This will result in files like this: `aula1exer2Evolucao3_Consulta_AlunoSobrenome_15-0129815.sql`.

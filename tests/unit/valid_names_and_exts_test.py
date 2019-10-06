@@ -1,4 +1,4 @@
-import vandor-rename as vandor
+import vandor_rename as vandor
 
 
 def test_valid_names_and_exts():

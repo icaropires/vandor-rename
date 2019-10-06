@@ -138,16 +138,16 @@ def zip_result(name, renamings):
 
 def beg():
     print('Cool application? Please give a star on Github:'
-          ' https://github.com/icaropires/vandor-rename !')
+          ' https://github.com/icaropires/vandor_rename !')
 
 
 if __name__ == '__main__':
 
     if len(argv) < 6:
-        print("Usage example: vandor-rename"
+        print("Usage example: vandor_rename"
               " [class_number] [exer_number] [evolution]"
               " [name] [registration_number]"
-              "\nExample: vandor-rename 1 2 3 AlunoSobrenome 15-0129815")
+              "\nExample: vandor_rename 1 2 3 AlunoSobrenome 15-0129815")
         exit(0)
 
     _, class_n, exer_n, evolution, name, registration_number, *_ = argv
