@@ -41,7 +41,7 @@ on Unix systems with just:
 
 ``` bash
 sudo curl https://raw.githubusercontent.com/icaropires/vandor_rename/master/vandor_rename.py \
-  -o /usr/local/bin/vandor_rename && sudo chmod a+x+r /usr/local/bin/vandor_rename
+  -o /usr/local/bin/vandor-rename && sudo chmod a+x+r /usr/local/bin/vandor-rename
 ```
 
 For updating your version, you can use the same command.
