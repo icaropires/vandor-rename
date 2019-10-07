@@ -5,7 +5,7 @@ TEST_DIR=tests/
 .PHONY: preInstall
 preInstall:
 	pip install --upgrade pip
-	pip install -r requirements.txt
+	pip install -r requirements-dev.txt
 
 .PHONY: createVirtualenv
 createVirtualenv:
@@ -25,7 +25,7 @@ cleanReport:
 
 .PHONY: openReport
 openReport: cleanReport
-	coverage run --branch -m unittest discover --pattern '*_test.py' --start-directory $(TEST_DIR)
+	coverage run --branch -m unittest discover --pattern 'test_*.py' --start-directory $(TEST_DIR)
 	coverage report --show-missing --include vandor_rename.py
 	coverage html --title 'Tests Coverage Report' --include vandor_rename.py
 	open htmlcov/index.html

@@ -3,11 +3,12 @@ from vandor_rename import os
 
 valid_names = vandor.VALID_NAMES
 
+
 def test_valid_names_and_exts():
     """
     Should ensure that all the names have their valid type
     """
-    
+
     expected_result = [
         "('sql',)",
         "('brM3',)",
@@ -30,13 +31,14 @@ def test_valid_names_and_exts():
     for extension in ext:
         assert extension == extensions
 
+
 def test_is_renamed_exercise():
     """
     Should ensure the type return by is_renamed_exercise() is a bool
     """
-    
+
     for filee in os.listdir():
-        assert not isinstance(type(True), type(vandor.is_shortname_exercise(filee))) 
+        assert not isinstance(type(True), type(vandor.is_shortname_exercise(filee)))
 
 
 def test_return_value_of_shortname_excersise():
@@ -82,4 +84,3 @@ def test_get_new_name():
 
 def test_validate_params():
     pass
-
