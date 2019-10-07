@@ -18,4 +18,4 @@ open-report: clean
 	coverage run --branch -m unittest discover --pattern 'test_*.py' --start-directory $(TEST_DIR)
 	coverage report --show-missing --include vandor_rename.py
 	coverage html --title 'Tests Coverage Report' --include vandor_rename.py
-	open -a "Google Chrome" htmlcov/index.html
+	open htmlcov/index.html || xdg-open  htmlcov/index.html
