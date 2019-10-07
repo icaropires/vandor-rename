@@ -7,6 +7,12 @@ preInstall:
 	pip install --upgrade pip
 	pip install -r requirements.txt
 
+.PHONY: createVirtualenv
+createVirtualenv:
+	python3 -m pip install --user virtualenv
+	python3 -m venv env
+	source env/bin/activate
+
 .PHONY: test
 test: cleanReport
 	pytest $(TEST_DIR)
