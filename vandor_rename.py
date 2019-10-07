@@ -5,6 +5,7 @@ import re
 from zipfile import ZipFile
 from sys import argv
 from collections import defaultdict
+from typing import Dict, List, Optional, Tuple
 
 
 # type to extensions
@@ -24,13 +25,13 @@ _exts = set(ext for exts in VALID_NAMES.values() for ext in exts)
 
 
 # Renamed exercise is like: class_type_name_registrationnumber.ext
-def is_renamed_exercise(filee):
+def is_renamed_exercise(filee: str) -> bool:
     return (any((filee.endswith(ext)) for ext in _exts)
             and filee.startswith('aula'))
 
 
 # Shortname exercise is like: consulta.sql
-def is_shortname_exercise(filee):
+def is_shortname_exercise(filee: str) -> bool:
     # Just some iterations
     short_names = (f'{n}.{ext}' for n, _exts in
                    VALID_NAMES.items() for ext in _exts)
@@ -38,13 +39,13 @@ def is_shortname_exercise(filee):
     return filee in short_names
 
 
-def type_to_presentation_type(typee):
+def type_to_presentation_type(typee: str) -> str:
     if typee.lower() != 'doc':
         return typee[0].upper() + typee[1:]
     return 'DOC'
 
 
-def alert_ignored_files(ignored_files):
+def alert_ignored_files(ignored_files: List[str]) -> None:
     print('=============================\n'
           '\tIgnored Files\n'
           '=============================')
@@ -55,7 +56,7 @@ def alert_ignored_files(ignored_files):
           f" look like exercises:\n{ignored_files}")
 
 
-def alert_renamings_to_be_applied(renamings):
+def alert_renamings_to_be_applied(renamings: Dict[str, str]) -> None:
     print('======================================\n'
           '\tRenamings to be applied:\n'
           '======================================')
@@ -72,7 +73,8 @@ def alert_renamings_to_be_applied(renamings):
         raise FileNotFoundError('No renamings to be applied')
 
 
-def confirm_operations(renamings, ignored_files):
+def confirm_operations(renamings: Dict[str, str],
+                       ignored_files: List[str]) -> None:
     alert_ignored_files(ignored_files)
     print()
     alert_renamings_to_be_applied(renamings)
@@ -84,15 +86,15 @@ def confirm_operations(renamings, ignored_files):
         exit(0)
 
 
-def rename_files(renamings):
+def rename_files(renamings: Dict[str, str]) -> None:
     for old_name, new_name in renamings.items():
         os.rename(old_name, new_name)
 
     print(f'\nFinished! Renamings applied!')
 
 
-def parse_files(all_files):
-    def get_renamed_type(filename):
+def parse_files(all_files: List[str]) -> Tuple[Dict[str, str], List[str]]:
+    def get_renamed_type(filename: str) -> str:
         typee = f.split('_')[0]
 
         for i, c in enumerate(reversed(typee)):
@@ -133,7 +135,7 @@ def parse_files(all_files):
     return renamings, ignored_files
 
 
-def zip_result(name, renamings):
+def zip_result(name: str, renamings: Dict[str, str]) -> None:
     if len(renamings):
         try:
             os.remove(name)
@@ -148,7 +150,7 @@ def zip_result(name, renamings):
         print('No files to be zipped!')
 
 
-def beg():
+def beg() -> None:
     print('Cool application? Please give a star on Github:'
           ' https://github.com/icaropires/vandor-rename !')
 
@@ -164,7 +166,7 @@ if __name__ == '__main__':
 
     _, class_n, exer_n, evolution, name, registration_number, *_ = argv
 
-    def assemble_classname():
+    def assemble_classname() -> str:
         class_name = f'aula{class_n}exer{exer_n}'
 
         if evolution != '-1':
@@ -172,7 +174,7 @@ if __name__ == '__main__':
 
         return class_name
 
-    def get_new_name(typee, ext=None):
+    def get_new_name(typee: str, ext: Optional[str] = None) -> str:
         new_name = '_'.join(
             (assemble_classname() + typee, name, registration_number)
         )
@@ -180,7 +182,7 @@ if __name__ == '__main__':
 
         return f'{new_name}.{ext}'
 
-    def validate_params():
+    def validate_params() -> None:
         message = ''
         param = ''
         name_pat = r'([A-ZÁÉÍÓÚÀÂÊÔÃÕÇ]{1}[a-záéíóúàâêôãõç]+){2}'
