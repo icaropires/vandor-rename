@@ -12,7 +12,7 @@ test: clean
 	pytest $(TEST_DIR)
 
 clean:
-	rm -rf .coverage
+	rm -rf .coverage htmlcov __pycache__ */__pycache__
 
 open-report: clean
 	coverage run --branch -m unittest discover --pattern 'test_*.py' --start-directory $(TEST_DIR)

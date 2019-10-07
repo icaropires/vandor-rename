@@ -40,7 +40,7 @@ As this is just a script without dependencies, I didn't put it on PyPI and you c
 on Unix systems with just:
 
 ``` bash
-sudo curl https://raw.githubusercontent.com/icaropires/vandor-rename/master/vandor-rename.py \
+sudo curl https://raw.githubusercontent.com/icaropires/vandor-rename/master/vandor_rename.py \
   -o /usr/local/bin/vandor-rename && sudo chmod a+x+r /usr/local/bin/vandor-rename
 ```
 

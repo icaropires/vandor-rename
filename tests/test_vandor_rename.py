@@ -38,7 +38,10 @@ def test_is_renamed_exercise():
     """
 
     for filee in os.listdir():
-        assert not isinstance(type(True), type(vandor.is_shortname_exercise(filee)))
+        assert not isinstance(
+            type(True),
+            type(vandor.is_shortname_exercise(filee))
+        )
 
 
 def test_return_value_of_shortname_excersise():
@@ -47,7 +50,10 @@ def test_return_value_of_shortname_excersise():
     """
 
     for filee in os.listdir():
-        assert not isinstance(type(False), type(vandor.is_shortname_exercise(filee)))
+        assert not isinstance(
+            type(False),
+            type(vandor.is_shortname_exercise(filee))
+        )
 
 
 def test_type_to_presentation_type():
