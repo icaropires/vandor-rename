@@ -92,6 +92,17 @@ def rename_files(renamings):
 
 
 def parse_files(all_files):
+    def get_renamed_type(filename):
+        typee = f.split('_')[0]
+
+        for i, c in enumerate(reversed(typee)):
+            index = len(typee)-i-1
+            if c.isupper() and typee[index-1].islower():
+                typee = typee[index:]
+                break
+
+        return typee
+
     renamings = defaultdict(lambda: '')
     renamings_reversed = defaultdict(lambda: '')
     ignored_files = []
@@ -100,7 +111,8 @@ def parse_files(all_files):
         if not renamings[f]:  # Sanity check
             new_name = ''
             if is_renamed_exercise(f):
-                typee = type_to_presentation_type(f.split('_')[1])
+                typee = get_renamed_type(f)
+                typee = type_to_presentation_type(typee)
                 new_name = get_new_name(typee)
             elif is_shortname_exercise(f):
                 typee, ext = f.split('.')
@@ -162,7 +174,7 @@ if __name__ == '__main__':
 
     def get_new_name(typee, ext=None):
         new_name = '_'.join(
-            (assemble_classname(), typee, name, registration_number)
+            (assemble_classname() + typee, name, registration_number)
         )
         ext = ext or VALID_NAMES[typee.lower()][0]
 
