@@ -7,6 +7,7 @@ install:
 create-env:
 	python3 -m pip install --user virtualenv
 	python3 -m venv env
+	@echo 'Run: "source env/bin/activate"'
 
 test: clean
 	pytest --cov=vandor_rename --cov-report=html
