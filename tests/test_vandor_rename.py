@@ -33,57 +33,39 @@ def test_valid_names_and_exts():
         assert extension == extensions
 
 
-def test_is_renamed_exercise():
+@pytest.mark.parametrize("input, expected_result", [("aula_test.brM3", True), ("fisico.sql", False)])
+def test_is_renamed_exercise_false(input, expected_result):
     """
-    Should ensure the type returned by is_renamed_exercise() is a bool
-    """
-
-    result = vandor.is_renamed_exercise('vandor_rename.py')
-    assert isinstance(result, (bool, str, int))
-    for filee in os.listdir():
-        assert not isinstance(
-            type(True),
-            type(vandor.is_renamed_exercise(filee))
-        )
-        
-
-
-def test_is_shortname_exercise():
-    """
-    Should ensure the type returned by is_shortname_exercise() is a bool
+    Should ensure the return value of is_renamed_exercise()
     """
 
-    for filee in os.listdir():
-        assert not isinstance(
-            type(False),
-            type(vandor.is_shortname_exercise(filee))
-        )
+    result = vandor.is_renamed_exercise(input)
+    assert expected_result == result
 
 
-def test_type_to_presentation_type_return1():
+@pytest.mark.parametrize("input, expected_result", [("logico.brM3", True), ("fisico.sql", True)])
+def test_is_shortname_exercise(input, expected_result):
     """
-    Should ensure the type and value returned by is_shortname_exercise() is a Test & str
+    Should ensure the type and return value of is_shortname_exercise()
     """
 
-    result = vandor.type_to_presentation_type('test')
-    expected_result = 'Test'
-    assert result == expected_result
-    assert type(result) == type(expected_result)
+    result = vandor.is_shortname_exercise(input)
+    assert expected_result == result
 
 
-def test_type_to_presentation_type_return2():
+@pytest.mark.parametrize("input, expected_result", [("test", "Test"), ("doc", "DOC")])
+def test_type_to_presentation_type(input, expected_result):
     """
-    Should ensure value returned by is_shortname_exercise() is a DOC
+    Should ensure the type and return value of is_shortname_exercise()
     """
 
-    result = vandor.type_to_presentation_type('doc')
-    expected_result = 'DOC'
-    assert result == expected_result
+    result = vandor.type_to_presentation_type(input)
+    assert expected_result, result
 
 
 def test_alert_ignored_files():
     """
-    Ensures the functions prints, nothing to test in this functions
+    Ensures the alert_ignored_files() prints
     """
     
     assert vandor.alert_ignored_files(("A", 2, "C", 4)) == None
@@ -91,7 +73,7 @@ def test_alert_ignored_files():
 
 def test_alert_renamings_to_be_applied():
     """
-    Ensures alert_renamings_to_be_appliedalert_renamings_to_be_applied() prints
+    Ensures alert_renamings_to_be_applied() prints
     """
     file_list = {
         "oldName": "newName",
@@ -109,7 +91,7 @@ def test_no_alert_renamings_to_be_applied():
     
     with pytest.raises(FileNotFoundError):
         vandor.alert_renamings_to_be_applied({})
-    
+
 
 def test_confirm_operations():
     pass
