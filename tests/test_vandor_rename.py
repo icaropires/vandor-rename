@@ -1,4 +1,5 @@
-import vandor_rename as vandor
+import pytest
+import vandor_rename as vandor 
 from vandor_rename import os
 
 valid_names = vandor.VALID_NAMES
@@ -34,19 +35,22 @@ def test_valid_names_and_exts():
 
 def test_is_renamed_exercise():
     """
-    Should ensure the type return by is_renamed_exercise() is a bool
+    Should ensure the type returned by is_renamed_exercise() is a bool
     """
 
+    result = vandor.is_renamed_exercise('vandor_rename.py')
+    assert isinstance(result, (bool, str, int))
     for filee in os.listdir():
         assert not isinstance(
             type(True),
-            type(vandor.is_shortname_exercise(filee))
+            type(vandor.is_renamed_exercise(filee))
         )
+        
 
 
-def test_return_value_of_shortname_excersise():
+def test_is_shortname_exercise():
     """
-    Should ensure the type return by is_renamed_exercise() is a bool
+    Should ensure the type returned by is_shortname_exercise() is a bool
     """
 
     for filee in os.listdir():
@@ -56,17 +60,56 @@ def test_return_value_of_shortname_excersise():
         )
 
 
-def test_type_to_presentation_type():
-    pass
+def test_type_to_presentation_type_return1():
+    """
+    Should ensure the type and value returned by is_shortname_exercise() is a Test & str
+    """
+
+    result = vandor.type_to_presentation_type('test')
+    expected_result = 'Test'
+    assert result == expected_result
+    assert type(result) == type(expected_result)
+
+
+def test_type_to_presentation_type_return2():
+    """
+    Should ensure value returned by is_shortname_exercise() is a DOC
+    """
+
+    result = vandor.type_to_presentation_type('doc')
+    expected_result = 'DOC'
+    assert result == expected_result
 
 
 def test_alert_ignored_files():
-    pass
+    """
+    Ensures the functions prints, nothing to test in this functions
+    """
+    
+    assert vandor.alert_ignored_files(("A", 2, "C", 4)) == None
 
 
 def test_alert_renamings_to_be_applied():
-    pass
+    """
+    Ensures alert_renamings_to_be_appliedalert_renamings_to_be_applied() prints
+    """
+    file_list = {
+        "oldName": "newName",
+        "Star": "*",
+        "test": "test"
+    }
+    
+    assert vandor.alert_renamings_to_be_applied(file_list) == None
 
+
+def test_no_alert_renamings_to_be_applied():
+    """
+    Ensures alert_renamings_to_be_applied() raises a FileNotFoundError
+    """
+    
+    with pytest.raises(FileNotFoundError):
+        vandor.alert_renamings_to_be_applied({})
+    
 
 def test_confirm_operations():
     pass
