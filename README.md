@@ -19,7 +19,7 @@ the renaming! This is what this project is about.
 ## The Pattern
 
 Vandor requests that all the the files should be in the following format:
-`aulaXexerYEvolucaoZ_Type_NameSurname_registrationnumber.extension`, respecting the case.
+`aulaXexerYEvolucaoZType_NameSurname_registrationnumber.extension`, respecting the case.
 
 Where:
 * `aula` means class and X is the the class number
@@ -32,7 +32,7 @@ creating the database, etc. It can be: `Apaga`, `Consulta`, `Controle`,
 * `registration` number is your number on college, on the format: `nn-nnnnnnn`
 * `extension` is the extension of the file
 
-Example of filename: `aula10exer5Evolucao10_Popula_AlunoAbobora_19-0000001.sql`.
+Example of filename: `aula10exer5Evolucao10Popula_AlunoAbobora_19-0000001.sql`.
 
 ## Installing
 
@@ -67,7 +67,7 @@ So, renaming your files accordingly:
 $ vandor-rename 1 2 3 AlunoSobrenome 15-0129815
 ```
 
-This will result in files like this: `aula1exer2Evolucao3_Consulta_AlunoSobrenome_15-0129815.sql`.
+This will result in files like this: `aula1exer2Evolucao3Consulta_AlunoSobrenome_15-0129815.sql`.
 Due to `[evolution]` be optional, you can pass it with value `-1` to ommit `EvolucaoZ` part.
 
 Every time the application is called and there is exist some valid file on folder with correct names,
