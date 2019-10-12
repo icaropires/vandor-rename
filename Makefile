@@ -10,7 +10,7 @@ create-env:
 	@echo 'Run: "source env/bin/activate"'
 
 test: clean
-	pytest --cov=vandor_rename --cov-report=html
+	pytest --cov=vandor_rename --cov-report=html -v
 
 clean:
 	rm -rf .coverage htmlcov __pycache__ */__pycache__

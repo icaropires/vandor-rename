@@ -52,7 +52,7 @@ def alert_ignored_files(ignored_files: List[str]) -> None:
     ignored_files = '\n'.join(
         f'  {i+1}. {f}' for i, f in enumerate(ignored_files)
     )
-    print("The following files will be ignored because they don't"
+    print("The following files will be ignored because they dont"
           f" look like exercises:\n{ignored_files}")
 
 

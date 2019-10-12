@@ -1,6 +1,5 @@
 import pytest
-import vandor_rename as vandor 
-from vandor_rename import os
+import vandor_rename as vandor
 
 valid_names = vandor.VALID_NAMES
 
@@ -63,34 +62,60 @@ def test_type_to_presentation_type(input, expected_result):
     assert expected_result, result
 
 
-def test_alert_ignored_files():
+def test_alert_ignored_files(capsys):
     """
     Ensures the alert_ignored_files() prints
     """
-    
-    assert vandor.alert_ignored_files(("A", 2, "C", 4)) == None
+
+    result_expected = '''=============================
+\tIgnored Files
+=============================
+The following files will be ignored because they dont look like exercises:
+  1. A
+  2. 2
+  3. C
+  4. 4\n'''
+
+    vandor.alert_ignored_files(("A", 2, "C", 4))
+    result = capsys.readouterr()
+    assert result.out == result_expected
 
 
-def test_alert_renamings_to_be_applied():
+def test_alert_renamings_to_be_applied(capsys):
     """
     Ensures alert_renamings_to_be_applied() prints
     """
-    file_list = {
-        "oldName": "newName",
-        "Star": "*",
-        "test": "test"
-    }
-    
-    assert vandor.alert_renamings_to_be_applied(file_list) == None
+
+    expected_result = '''======================================
+\tRenamings to be applied:
+======================================
+1. test ----> testOne
+\nTotal of renamings: 1\n'''
+
+    vandor.alert_renamings_to_be_applied({"test": "testOne"})
+    result = capsys.readouterr()
+    assert result.out == expected_result
 
 
-def test_no_alert_renamings_to_be_applied():
+@pytest.mark.parametrize("input, expected_result", [({}, '''======================================
+\tRenamings to be applied:
+======================================
+\nTotal of renamings: 0\n'''), ({"oneTest": "oneTest"}, '''======================================
+\tRenamings to be applied:
+======================================
+  X. oneTest is already renamed!
+\nTotal of renamings: 0\n''')])
+def test_alert_renamings_to_be_applied_NONE(input, expected_result, capsys):
     """
     Ensures alert_renamings_to_be_applied() raises a FileNotFoundError
     """
-    
+
     with pytest.raises(FileNotFoundError):
-        vandor.alert_renamings_to_be_applied({})
+        vandor.alert_renamings_to_be_applied(input)
+
+    result = capsys.readouterr()
+    assert result.out == expected_result
+
 
 
 def test_confirm_operations():
