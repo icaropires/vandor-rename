@@ -5,6 +5,8 @@ help:
 	@echo "        Install dependencies"
 	@echo "    create-env"
 	@echo "        Create a virtualenv to the project"
+	@echo "    pre-commit"
+	@echo "        Run the combo format, lint and test. The ones that should be called before every commit. For committing should be no errors"
 	@echo "    format"
 	@echo "        Apply black formatting to code."
 	@echo "    lint"
@@ -25,12 +27,14 @@ create-env:
 	python3 -m venv env
 	@echo 'Run: "source env/bin/activate"'
 
-lint:
-	black -t py37 -l 79 --check *.py $(TEST_DIR)
-	flake8 *.py $(TEST_DIR)
+pre-commit: format lint test
 
 format:
 	black -t py37 -l 79 *.py $(TEST_DIR)
+
+lint:
+	black -t py37 -l 79 --check *.py $(TEST_DIR)
+	flake8 *.py $(TEST_DIR)
 
 test: clean
 	pytest --cov=vandor_rename --cov-report=html --verbose
