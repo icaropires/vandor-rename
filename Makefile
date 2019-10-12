@@ -17,5 +17,4 @@ clean:
 
 open-report:
 	pytest --cov=vandor_rename --cov-report=term-missing --cov-report=html
-	open htmlcov/index.html
 	open htmlcov/index.html || xdg-open htmlcov/index.html
