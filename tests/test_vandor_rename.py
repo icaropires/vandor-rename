@@ -1,5 +1,5 @@
+import pytest
 import vandor_rename as vandor
-from vandor_rename import os
 
 valid_names = vandor.VALID_NAMES
 
@@ -32,40 +32,90 @@ def test_valid_names_and_exts():
         assert extension == extensions
 
 
-def test_is_renamed_exercise():
+@pytest.mark.parametrize("data, expected_result", [("aula_test.brM3", True), ("fisico.sql", False), ("aula1exer2Evolucao3Consulta_AlunoSobrenome_15-0129815.sql", True)])
+def test_is_renamed_exercise(data, expected_result):
     """
-    Should ensure the type return by is_renamed_exercise() is a bool
-    """
-
-    for filee in os.listdir():
-        assert not isinstance(
-            type(True),
-            type(vandor.is_shortname_exercise(filee))
-        )
-
-
-def test_return_value_of_shortname_excersise():
-    """
-    Should ensure the type return by is_renamed_exercise() is a bool
+    Should ensure the return value of is_renamed_exercise()
     """
 
-    for filee in os.listdir():
-        assert not isinstance(
-            type(False),
-            type(vandor.is_shortname_exercise(filee))
-        )
+    result = vandor.is_renamed_exercise(data)
+    assert expected_result == result
 
 
-def test_type_to_presentation_type():
-    pass
+@pytest.mark.parametrize("data, expected_result", [("logico.brM3", True), ("fisico.sql", True), ("uncorrect.pdf", False), ("controle.docx", False)])
+def test_is_shortname_exercise(data, expected_result):
+    """
+    Should ensure the type and return value of is_shortname_exercise()
+    """
+
+    result = vandor.is_shortname_exercise(data)
+    assert expected_result == result
 
 
-def test_alert_ignored_files():
-    pass
+@pytest.mark.parametrize("data, expected_result", [("test", "Test"), ("doc", "DOC")])
+def test_type_to_presentation_type(data, expected_result):
+    """
+    Should ensure the type and return value of is_shortname_exercise()
+    """
+
+    result = vandor.type_to_presentation_type(data)
+    assert expected_result == result
 
 
-def test_alert_renamings_to_be_applied():
-    pass
+def test_alert_ignored_files(capsys):
+    """
+    Ensures the alert_ignored_files() prints
+    """
+
+    result_expected = '''=============================
+\tIgnored Files
+=============================
+The following files will be ignored because they don't look like exercises:
+  1. cosulta.sql
+  2. controle.sql
+  3. fisico.sql
+  4. aula1exer2Evolucao3Consulta_AlunoSobrenome_15\n'''
+
+    vandor.alert_ignored_files(("cosulta.sql", "controle.sql", "fisico.sql", "aula1exer2Evolucao3Consulta_AlunoSobrenome_15"))
+    result = capsys.readouterr()
+    assert result.out == result_expected
+
+
+def test_alert_renamings_to_be_applied(capsys):
+    """
+    Ensures alert_renamings_to_be_applied() prints
+    """
+
+    expected_result = '''======================================
+\tRenamings to be applied:
+======================================
+1. test ----> testOne
+\nTotal of renamings: 1\n'''
+
+    vandor.alert_renamings_to_be_applied({"test": "testOne"})
+    result = capsys.readouterr()
+    assert result.out == expected_result
+
+
+@pytest.mark.parametrize("data, expected_result", [({}, '''======================================
+\tRenamings to be applied:
+======================================
+\nTotal of renamings: 0\n'''), ({"oneTest": "oneTest"}, '''======================================
+\tRenamings to be applied:
+======================================
+  X. oneTest is already renamed!
+\nTotal of renamings: 0\n''')])
+def test_alert_renamings_to_be_applied_NONE(data, expected_result, capsys):
+    """
+    Ensures alert_renamings_to_be_applied() raises a FileNotFoundError
+    """
+
+    with pytest.raises(FileNotFoundError):
+        vandor.alert_renamings_to_be_applied(data)
+
+    result = capsys.readouterr()
+    assert result.out == expected_result
+
 
 
 def test_confirm_operations():
