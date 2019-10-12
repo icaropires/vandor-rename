@@ -1,5 +1,7 @@
 # Vandor Rename
 
+[![Build Status](https://travis-ci.com/icaropires/vandor-rename.svg?branch=master)](https://travis-ci.com/icaropires/vandor-rename)
+
 Are you sick of renaming all the thousands of files of all the thousands of exercises assigned
 by Professor Vandor every week? So am I! We can't change the format he likes but we can automate
 the renaming! This is what this project is about.
@@ -77,4 +79,4 @@ a zip will be created with these files, even if they weren't renamed now.
 ## How to contribute
 
 All PRs and issues will are welcome.
-For PRs, just use flake8 and fix the problems in your files before openning a PR.
+For PRs, run `make pre-commit` and if there aren't any erros, your code is ready for review!
