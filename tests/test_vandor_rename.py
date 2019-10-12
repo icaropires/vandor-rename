@@ -4,7 +4,14 @@ import vandor_rename as vandor
 valid_names = vandor.VALID_NAMES
 
 
-@pytest.mark.parametrize("filee, expected", [("aula_test.brM3", True), ("fisico.sql", False), ("aula1exer2Evolucao3Consulta_AlunoSobrenome_15-0129815.sql", True)])
+@pytest.mark.parametrize(
+    "filee, expected",
+    [
+        ("aula_test.brM3", True),
+        ("fisico.sql", False),
+        ("aula1exer2Evolucao3Consulta_AlunoSobrenome_15-0129815.sql", True),
+    ],
+)
 def test_is_renamed_exercise(filee, expected):
     """
     Should ensure the return value of is_renamed_exercise()
@@ -14,7 +21,15 @@ def test_is_renamed_exercise(filee, expected):
     assert expected == result
 
 
-@pytest.mark.parametrize("filee, expected", [("logico.brM3", True), ("fisico.sql", True), ("uncorrect.pdf", False), ("controle.docx", False)])
+@pytest.mark.parametrize(
+    "filee, expected",
+    [
+        ("logico.brM3", True),
+        ("fisico.sql", True),
+        ("uncorrect.pdf", False),
+        ("controle.docx", False),
+    ],
+)
 def test_is_shortname_exercise(filee, expected):
     """
     Should ensure the type and return value of is_shortname_exercise()
@@ -39,18 +54,27 @@ def test_alert_ignored_files(capsys):
     Ensures the alert_ignored_files() prints
     """
 
-    expected = '''=============================
+    expected = """
+=============================
 \tIgnored Files
 =============================
 The following files will be ignored because they don't look like exercises:
   1. cosulta.sql
   2. cotrole.sql
   3. fisco.sql
-  4. aula1exer2Evolucao3Consulta_AlunoSobrenome_15\n'''
+  4. aula1exer2Evolucao3Consulta_AlunoSobrenome_15
+"""
 
-    vandor.alert_ignored_files(("cosulta.sql", "cotrole.sql", "fisco.sql", "aula1exer2Evolucao3Consulta_AlunoSobrenome_15"))
+    vandor.alert_ignored_files(
+        (
+            "cosulta.sql",
+            "cotrole.sql",
+            "fisco.sql",
+            "aula1exer2Evolucao3Consulta_AlunoSobrenome_15",
+        )
+    )
     result = capsys.readouterr()
-    assert result.out == expected
+    assert result.out.strip() == expected.strip()
 
 
 def test_alert_renamings_to_be_applied(capsys):
@@ -58,35 +82,41 @@ def test_alert_renamings_to_be_applied(capsys):
     Ensures alert_renamings_to_be_applied() prints
     """
 
-    expected = '''======================================
+    expected = """
+======================================
 \tRenamings to be applied:
 ======================================
 1. test ----> testOne
-\nTotal of renamings: 1\n'''
+\nTotal of renamings: 1
+"""
 
     vandor.alert_renamings_to_be_applied({"test": "testOne"})
     result = capsys.readouterr()
-    assert result.out == expected
+    assert result.out.strip() == expected.strip()
 
 
-@pytest.mark.parametrize("renamings, expected", [({}, '''======================================
-\tRenamings to be applied:
-======================================
-\nTotal of renamings: 0\n'''), ({"oneTest": "oneTest"}, '''======================================
-\tRenamings to be applied:
-======================================
-  X. oneTest is already renamed!
-\nTotal of renamings: 0\n''')])
+@pytest.mark.parametrize(
+    "renamings, expected",
+    [({}, ""), ({"oneTest": "oneTest"}, "  X. oneTest is already renamed!\n")],
+)
 def test_alert_renamings_to_be_applied_not_found(renamings, expected, capsys):
     """
     Ensures alert_renamings_to_be_applied() raises a FileNotFoundError
     """
 
+    prefix = """
+======================================
+\tRenamings to be applied:
+======================================
+"""
+    suffix = "\nTotal of renamings: 0"
+
     with pytest.raises(FileNotFoundError):
         vandor.alert_renamings_to_be_applied(renamings)
 
     result = capsys.readouterr()
-    assert result.out == expected
+    expected = prefix + expected + suffix
+    assert result.out.strip() == expected.strip()
 
 
 # def test_confirm_operations():
